@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.university.rm</groupId>
     <artifactId>ResultManagement</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <groupId>com.university.rm</groupId>
   <artifactId>rm-ui</artifactId>
@@ -24,6 +24,18 @@
 	</properties>
 	
   <dependencies>
+        <dependency>
+			<groupId>com.university.rm</groupId>
+			<artifactId>rm-java</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>1.3.2</version>
+        </dependency>
+
     <!-- Unit Test -->
 		<dependency>
 			<groupId>junit</groupId>

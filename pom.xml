@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.university.rm</groupId>
   <artifactId>ResultManagement</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>rm-ui</module>
     <module>rm-java</module>
+    <module>rm-ui</module>
   </modules>
 </project>
