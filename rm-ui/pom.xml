@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.university.rm</groupId>
-    <artifactId>ResultManagement</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  <groupId>com.university.rm</groupId>
-  <artifactId>rm-ui</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>rm-ui Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  <properties>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.university.rm</groupId>
+		<artifactId>ResultManagement</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.university.rm</groupId>
+	<artifactId>rm-ui</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>rm-ui Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
 		<jdk.version>1.7</jdk.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<jstl.version>1.2</jstl.version>
@@ -22,21 +23,21 @@
 		<logback.version>1.0.13</logback.version>
 		<jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
 	</properties>
-	
-  <dependencies>
-        <dependency>
+
+	<dependencies>
+		<dependency>
 			<groupId>com.university.rm</groupId>
 			<artifactId>rm-java</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
-		<dependency>
-          <groupId>commons-io</groupId>
-          <artifactId>commons-io</artifactId>
-          <version>1.3.2</version>
-        </dependency>
 
-    <!-- Unit Test -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<!-- Unit Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -87,46 +88,46 @@
 			<version>${jstl.version}</version>
 		</dependency>
 
-  </dependencies>
-  
-  <build>
+	</dependencies>
+
+	<build>
 		<finalName>ResultManagement</finalName>
 
 		<plugins>
-		    <!-- Eclipse project -->
-		  <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-eclipse-plugin</artifactId>
-			<version>2.9</version>
-			<configuration>
-			        <!-- Always download and attach dependencies source code -->
-				<downloadSources>true</downloadSources>
-				<downloadJavadocs>false</downloadJavadocs>
-				<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
-				<wtpversion>2.0</wtpversion>
-			</configuration>
-		  </plugin>
+			<!-- Eclipse project -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<!-- Always download and attach dependencies source code -->
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+					<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
+					<wtpversion>2.0</wtpversion>
+				</configuration>
+			</plugin>
 
-		  <!-- Set JDK Compiler Level -->
-		  <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.3.2</version>
-			<configuration>
-				<source>${jdk.version}</source>
-				<target>${jdk.version}</target>
-			</configuration>
-		  </plugin>
+			<!-- Set JDK Compiler Level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
 
-		  <!-- For Maven Tomcat Plugin -->
-		  <plugin>
-			<groupId>org.apache.tomcat.maven</groupId>
-			<artifactId>tomcat7-maven-plugin</artifactId>
-			<version>2.2</version>
-			<configuration>
-				<path>/ResultManagement</path>
-			</configuration>
-		  </plugin>
+			<!-- For Maven Tomcat Plugin -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<path>/ResultManagement</path>
+				</configuration>
+			</plugin>
 
 		</plugins>
 

@@ -3,7 +3,7 @@
 
 <center>
         <h1>File Upload to Database Demo</h1>
-        <form method="post" action="uploadServlet" enctype="multipart/form-data">
+        <form method="post" action="uploadServlet" modelAttribute="fileBucket" enctype="multipart/form-data">
             <table border="0">
                 <tr>
                     <td>File to upload: </td>

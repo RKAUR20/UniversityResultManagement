@@ -2,39 +2,42 @@ package com.university.rm.controller;
 
 import java.io.File;
 import java.io.IOException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.university.rm.model.Student;
+import com.university.rm.facade.InputHandlerServiceFacade;
+import com.university.rm.model.FileBucket;
 
 @Controller
 public class BaseController {
+	
+	@Autowired
+	InputHandlerServiceFacade inputHandlerServiceFacade;
+
+	public InputHandlerServiceFacade getInputHandlerServiceFacade() {
+		return inputHandlerServiceFacade;
+	}
+
+	public void setInputHandlerServiceFacade(InputHandlerServiceFacade inputHandlerServiceFacade) {
+		this.inputHandlerServiceFacade = inputHandlerServiceFacade;
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(String locale, Model model) {
-		return "index";
+	public ModelAndView home() {
+		ModelAndView model = new ModelAndView("index");
+		FileBucket fileBucket = new FileBucket();
+		model.addObject("fileBucket", fileBucket);
+		return model;
 	}
 	
 	@RequestMapping(value = "/uploadServlet", method = RequestMethod.POST)
-	public String uploadServlet(@ModelAttribute("file") MultipartFile multiPartFileUpload) throws JAXBException, IllegalStateException, IOException {
-		File fileUpload = new File(multiPartFileUpload.getOriginalFilename());
-		multiPartFileUpload.transferTo(fileUpload);
-		JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);  
-		   
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
-        Student que= (Student) jaxbUnmarshaller.unmarshal(fileUpload); 
-        
-		return "index";
+	public String uploadServlet(@ModelAttribute("fileBucket") FileBucket fileBucket) {
+		inputHandlerServiceFacade.handleInputFromUI(fileBucket);
+		return "success";
 	}
 	
 }
