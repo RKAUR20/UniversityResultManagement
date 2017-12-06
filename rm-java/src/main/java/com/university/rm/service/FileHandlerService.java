@@ -8,15 +8,18 @@ import javax.xml.bind.JAXBException;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
+import com.university.rm.customexceptions.InputFileUnmarshalException;
+import com.university.rm.customexceptions.JSONReportsGenerationException;
+import com.university.rm.customexceptions.ReportNotFoundException;
 import com.university.rm.model.FileBucket;
 import com.university.rm.model.Student;
 
 
 public interface FileHandlerService {
 	
-	public List<Student> convertXMLFileToStudents(FileBucket fileBucket) throws IllegalStateException, IOException, JAXBException;
+	public List<Student> convertXMLFileToStudents(FileBucket fileBucket) throws InputFileUnmarshalException;
 	
-	public void createJSONReports(List<Student> students) throws JsonGenerationException, JsonMappingException, IOException;
+	public void createJSONReports(List<Student> students) throws JSONReportsGenerationException;
 
-	public File getStudentReport(String studentName);
+	public File getStudentReport(String studentName) throws ReportNotFoundException;
 }

@@ -18,6 +18,7 @@
             </table>
         </form>
         
+        <br>Click <a href="home">here</a> to go back to home page.
 </center>
     
 </body>

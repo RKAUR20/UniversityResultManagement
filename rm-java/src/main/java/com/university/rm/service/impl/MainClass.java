@@ -20,7 +20,7 @@ public class MainClass {
 	
 	public static void main(String [] args) throws JAXBException, JsonGenerationException, JsonMappingException, IOException {
 				
-		 File fileUpload = new File("C:\\Users\\rkau23\\students.xml");
+		/* File fileUpload = new File("C:\\Users\\rkau23\\students.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);  
 		   
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
@@ -38,7 +38,7 @@ public class MainClass {
 
         Student student = objectMapper.readValue(file, Student.class);
         
-        System.out.println(student.getName());
+        System.out.println(student.getName());*/
         
 	}
 	

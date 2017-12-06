@@ -11,6 +11,9 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.university.rm.customexceptions.InputFileUnmarshalException;
+import com.university.rm.customexceptions.JSONReportsGenerationException;
+import com.university.rm.customexceptions.ReportNotFoundException;
 import com.university.rm.model.FileBucket;
 import com.university.rm.model.Student;
 import com.university.rm.service.FileHandlerService;
@@ -25,39 +28,17 @@ public class InputHandlerServiceFacade {
 	@Autowired
 	ResultCalculatorService resultCalculatorService;
 	
-	public void handleInputFromUI(FileBucket fileBucket) {
-		List<Student> students = null;
-		try {
-			students = fileHandlerService.convertXMLFileToStudents(fileBucket);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void handleInputFromUI(FileBucket fileBucket) throws InputFileUnmarshalException, JSONReportsGenerationException {
+		List<Student> students = fileHandlerService.convertXMLFileToStudents(fileBucket);
 		
-		if(null != students && !students.isEmpty()) {
+		if (null != students && !students.isEmpty()) {
 			resultCalculatorService.calculateStudentsResult(students);
-			try {
-				fileHandlerService.createJSONReports(students);
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			fileHandlerService.createJSONReports(students);
 		}
+			
 	}
 	
-	public File handleOutput(String studentName) {
+	public File handleOutput(String studentName) throws ReportNotFoundException {
 		return fileHandlerService.getStudentReport(studentName);
 	}
 

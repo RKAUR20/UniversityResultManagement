@@ -13,6 +13,9 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import com.university.rm.customexceptions.InputFileUnmarshalException;
+import com.university.rm.customexceptions.JSONReportsGenerationException;
+import com.university.rm.customexceptions.ReportNotFoundException;
 import com.university.rm.model.FileBucket;
 import com.university.rm.model.Student;
 import com.university.rm.model.Students;
@@ -22,23 +25,34 @@ import com.university.rm.service.FileHandlerService;
 @Service
 public class FileHandlerServiceImpl implements FileHandlerService{
 
-	public List<Student> convertXMLFileToStudents(FileBucket fileBucket) throws IllegalStateException, IOException, JAXBException {
+	public List<Student> convertXMLFileToStudents(FileBucket fileBucket) throws InputFileUnmarshalException{
 		File fileUpload = new File(fileBucket.getFile().getOriginalFilename());
-		fileBucket.getFile().transferTo(fileUpload);
-		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);  
+		Students students = null;
+		try {
+			fileBucket.getFile().transferTo(fileUpload);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
+	        students = (Students) jaxbUnmarshaller.unmarshal(fileUpload);
+		} catch (IllegalStateException | IOException | JAXBException ex) {
+			// TODO Auto-generated catch block
+			throw new InputFileUnmarshalException(ex);
+		}  
 		   
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
-        Students students= (Students) jaxbUnmarshaller.unmarshal(fileUpload);
-        return students.getStudents();
+		return students.getStudents();
 	}
 	
-	public void createJSONReports(List<Student> students) throws JsonGenerationException, JsonMappingException, IOException {
+	public void createJSONReports(List<Student> students) throws JSONReportsGenerationException{
 		
 		clearPreviousJSONReports();
 		
 		for(Student student : students) {
 			ObjectMapper ow1 = new ObjectMapper();
-			ow1.writeValue(new File(student.getName()+".json"), student);
+			try {
+				ow1.writeValue(new File(student.getName()+".json"), student);
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				throw new JSONReportsGenerationException(ex);
+			}
 		}
 	}
 	
@@ -62,7 +76,7 @@ public class FileHandlerServiceImpl implements FileHandlerService{
         else return "";
     }
 	
-	public File getStudentReport(String studentName) {
+	public File getStudentReport(String studentName) throws ReportNotFoundException {
 		
 		File serverDirectory = new File(System.getProperty("user.dir"));
 
@@ -75,7 +89,7 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 			}
 		}
 		
-		return null;
+		throw new ReportNotFoundException(studentName); 
 		
 	}
 

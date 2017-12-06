@@ -1,0 +1,64 @@
+<students>
+<student>  
+    <id>101</id>  
+    <name>Neha</name>  
+	<subjects>
+		<subject>
+			<subjectName>Maths</subjectName>
+			<marks>66</marks>
+		</subject>
+		<subject>
+			<subjectName>English</subjectName>
+			<marks>65</marks>
+		</subject>
+		<subject>
+			<subjectName>SST</subjectName>
+			<marks>36</marks>
+		</subject>
+		<subject>
+			<subjectName>Arts</subjectName>
+			<marks>32</marks>
+		</subject>
+	</subjects>
+</student>  
+<student>  
+    <id>456</id>  
+    <name>Bhumi</name>  
+	<subjects>
+		<subject>
+			<subjectName>Maths</subjectName>
+			<marks>62</marks>
+		</subject>
+		<subject>
+			<subjectName>English</subjectName>
+			<marks>69</marks>
+		</subject>
+		<subject>
+			<subjectName>SST</subjectName>
+			<marks>96</marks>
+		</subject>
+		<subject>
+			<subjectName>Arts</subjectName>
+			<marks>32</marks>
+		</subject>
+	</subjects>
+</student>  
+<student>  
+    <id>104</id>  
+    <name>Bheem</name>  
+	<subjects>
+		<subject>
+			<subjectName>Maths</subjectName>
+			<marks>26</marks>
+		</subject>
+		<subject>
+			<subjectName>English</subjectName>
+			<marks>64</marks>
+		</subject>
+		<subject>
+			<subjectName>Sanskrit</subjectName>
+			<marks>37</marks>
+		</subject>
+	</subjects>
+</student>  
+</students>
