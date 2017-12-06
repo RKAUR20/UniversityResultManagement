@@ -24,5 +24,11 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 		}
 		
 	}
+	
+	public void rankStudents(List<Student> students) {
+		for(Student student : students) {
+			
+		}
+	}
 
 }

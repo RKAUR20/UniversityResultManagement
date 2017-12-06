@@ -1,5 +1,6 @@
 package com.university.rm.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javax.xml.bind.JAXBException;
@@ -17,4 +18,5 @@ public interface FileHandlerService {
 	
 	public void createJSONReports(List<Student> students) throws JsonGenerationException, JsonMappingException, IOException;
 
+	public File getStudentReport(String studentName);
 }

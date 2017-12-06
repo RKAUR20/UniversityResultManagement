@@ -1,5 +1,6 @@
 package com.university.rm.facade;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,6 +55,10 @@ public class InputHandlerServiceFacade {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public File handleOutput(String studentName) {
+		return fileHandlerService.getStudentReport(studentName);
 	}
 
 }

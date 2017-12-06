@@ -33,10 +33,50 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 	}
 	
 	public void createJSONReports(List<Student> students) throws JsonGenerationException, JsonMappingException, IOException {
+		
+		clearPreviousJSONReports();
+		
 		for(Student student : students) {
 			ObjectMapper ow1 = new ObjectMapper();
 			ow1.writeValue(new File(student.getName()+".json"), student);
 		}
+	}
+	
+	private void clearPreviousJSONReports() {
+		
+		File serverDirectory = new File(System.getProperty("user.dir"));
+
+		File[] fList = serverDirectory.listFiles();
+		for (File file : fList) {
+			if ("json".equals(getFileExtension(file))) {
+				System.out.println(file.getName());
+				file.delete();
+			}
+		}
+	}
+	
+	private String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
+	
+	public File getStudentReport(String studentName) {
+		
+		File serverDirectory = new File(System.getProperty("user.dir"));
+
+		File[] fList = serverDirectory.listFiles();
+		for (File file : fList) {
+			if ("json".equals(getFileExtension(file))) {
+				if(file.getName().contains(studentName)) {
+					return file;
+				}
+			}
+		}
+		
+		return null;
+		
 	}
 
 }
