@@ -63,7 +63,6 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 		File[] fList = serverDirectory.listFiles();
 		for (File file : fList) {
 			if ("json".equals(getFileExtension(file))) {
-				System.out.println(file.getName());
 				file.delete();
 			}
 		}

@@ -15,6 +15,7 @@ public class Student {
 	private List<Subject> subjects;
 	private Status status;
 	private Integer totalMarks;
+	private Integer rank = 1;
 	
 	public List<Subject> getSubjects() {
 		return subjects;
@@ -67,6 +68,14 @@ public class Student {
 			totalMarks = totalMarks + subject.getMarks();
 		}
 		this.totalMarks = totalMarks;
+	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
 	}
 	
 }
