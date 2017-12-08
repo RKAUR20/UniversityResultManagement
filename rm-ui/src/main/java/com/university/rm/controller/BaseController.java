@@ -5,15 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.university.rm.customexceptions.InputFileUnmarshalException;
-import com.university.rm.customexceptions.InvalidInputFileException;
 import com.university.rm.customexceptions.JSONReportsGenerationException;
 import com.university.rm.facade.InputHandlerServiceFacade;
 import com.university.rm.model.FileBucket;
 
 @Controller
 public class BaseController {
+	
+	final Logger logger = Logger.getLogger(BaseController.class); 
 
 	@Autowired
 	InputHandlerServiceFacade inputHandlerServiceFacade;
@@ -55,7 +53,9 @@ public class BaseController {
 
 	@RequestMapping(value = "/uploadServlet", method = RequestMethod.POST)
 	public String uploadServlet(@ModelAttribute("fileBucket") FileBucket fileBucket) throws InputFileUnmarshalException, JSONReportsGenerationException {
+		logger.debug("Upload XML data request received.");
 		inputHandlerServiceFacade.handleInputFromUI(fileBucket);
+		logger.debug("Upload XML data request completed.");
 		return "success";
 	}
 
@@ -68,6 +68,7 @@ public class BaseController {
 	@RequestMapping(value = "/searchStudentReport", method = RequestMethod.POST)
 	public String searchStudentReport(@RequestParam("studentName") String studentName, HttpServletResponse response)
 			throws Exception {
+		logger.debug("Search student report request for "+ studentName +" received.");
 		File f = inputHandlerServiceFacade.handleOutput(studentName);
 		
 		response.setContentType("application/pdf");
@@ -76,7 +77,7 @@ public class BaseController {
 
 		FileCopyUtils.copy(inputStream, response.getOutputStream());
 		response.getOutputStream().flush();
-
+		logger.debug("Search student report request for "+ studentName +" completed.");
 		return "home";
 	}
 	

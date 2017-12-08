@@ -21,7 +21,7 @@ public class XMLMarshaller {
 		Students students = new Students();
 		Random rand = new Random();
 		students.setStudents(new ArrayList<>());
-		for(int i=0 ; i < 5000; i++) {
+		for(int i=0 ; i < 500000; i++) {
 			Student s = new Student();
 			s.setId(i+100);
 			s.setName("Student "+i);

@@ -1,13 +1,11 @@
 package com.university.rm.service.impl;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import com.university.rm.model.Status;
 import com.university.rm.model.Student;
 import com.university.rm.service.ResultCalculatorService;
@@ -16,33 +14,37 @@ import com.university.rm.service.ResultCalculatorService;
 @Service
 public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 
+	final Logger logger = Logger.getLogger(ResultCalculatorServiceImpl.class);
+	
 	public void calculateStudentsResult(List<Student> students) {
 		// TODO Auto-generated method stub
+		
+		logger.debug("Going to set result and total marks of students.");
+		
 		ExecutorService executor = Executors.newFixedThreadPool(5);
 
-		// all jobs are submitted sequentially, but only 5 jobs execute concurrently at a time
-		for(Student student : students) {
-			executor.submit(new Runnable() {
-				@Override
-				public void run() {
-					student.setStatus();
-					student.setTotalMarks();
-				}
+		for (Student student : students) {
+			executor.submit(() -> {
+				student.setStatus();
+				student.setTotalMarks();
 			});
 		}
-		
+
 		executor.shutdown();
-        // Wait until all threads are finish
-        try {
-			executor.awaitTermination(50000, TimeUnit.DAYS);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+
+		try {
+			executor.awaitTermination(10, TimeUnit.MINUTES);
+		} catch (InterruptedException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		logger.debug("Result and total marks of student set.");
+		logger.debug("Calculating Rank for pass students.");
+		rankStudents(students);
+
 	}
 	
-	public void rankStudents(List<Student> students) {
+	private void rankStudents(List<Student> students) {
 		for (int i = 0; i < students.size(); i++) {
 			Student current = students.get(i);
 			
@@ -63,6 +65,8 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 				
 			}
 		}
+		
+		logger.debug("Ranking students completed.");
 	}
 
 }

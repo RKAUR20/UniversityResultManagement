@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -27,22 +30,23 @@ import com.university.rm.service.impl.ResultCalculatorServiceImpl;
 public class MainClass {
 	
 	public static void main(String [] args) throws JAXBException, JSONReportsGenerationException, ReportNotFoundException, JsonParseException, JsonMappingException, IOException {
+		
 		System.out.println(Instant.now());
+		
 		File fileUpload = new File("C:\\Users\\rkau23\\Students.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);  
 		   
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
         Students students= (Students) jaxbUnmarshaller.unmarshal(fileUpload);
         
-        ResultCalculatorServiceImpl resultCalculatorService= new ResultCalculatorServiceImpl();
+        /*ResultCalculatorServiceImpl resultCalculatorService= new ResultCalculatorServiceImpl();
         resultCalculatorService.calculateStudentsResult(students.getStudents());
-        /*resultCalculatorService.rankStudents(students.getStudents());*/
+        resultCalculatorService.rankStudents(students.getStudents());*/
         
         /*FileHandlerServiceImpl impl = new FileHandlerServiceImpl();
         impl.createJSONReports(students.getStudents());*/
         
         System.out.println(Instant.now());
-        
         
         /*File file = impl.getStudentReport("Ram");
         
