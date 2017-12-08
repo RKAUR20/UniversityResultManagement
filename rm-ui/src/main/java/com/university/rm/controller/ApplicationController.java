@@ -19,24 +19,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.university.rm.customexceptions.InputFileUnmarshalException;
 import com.university.rm.customexceptions.JSONReportsGenerationException;
-import com.university.rm.facade.InputHandlerServiceFacade;
+import com.university.rm.facade.OutputReportHandlerServiceFacade;
+import com.university.rm.facade.UploadHandlerServiceFacade;
 import com.university.rm.model.FileBucket;
 
 @Controller
-public class BaseController {
+public class ApplicationController {
 	
-	final Logger logger = Logger.getLogger(BaseController.class); 
+	final Logger logger = Logger.getLogger(ApplicationController.class); 
 
 	@Autowired
-	InputHandlerServiceFacade inputHandlerServiceFacade;
+	private UploadHandlerServiceFacade uploadHandlerServiceFacade;
+	
+	@Autowired
+	private OutputReportHandlerServiceFacade outputReportHandlerServiceFacade;
 
-	public InputHandlerServiceFacade getInputHandlerServiceFacade() {
-		return inputHandlerServiceFacade;
+	public UploadHandlerServiceFacade getUploadHandlerServiceFacade() {
+		return uploadHandlerServiceFacade;
 	}
 
-	public void setInputHandlerServiceFacade(InputHandlerServiceFacade inputHandlerServiceFacade) {
-		this.inputHandlerServiceFacade = inputHandlerServiceFacade;
+	public void setUploadHandlerServiceFacade(UploadHandlerServiceFacade uploadHandlerServiceFacade) {
+		this.uploadHandlerServiceFacade = uploadHandlerServiceFacade;
 	}
+	
+	public OutputReportHandlerServiceFacade getOutputReportHandlerServiceFacade() {
+		return outputReportHandlerServiceFacade;
+	}
+
+	public void setOutputReportHandlerServiceFacade(OutputReportHandlerServiceFacade outputReportHandlerServiceFacade) {
+		this.outputReportHandlerServiceFacade = outputReportHandlerServiceFacade;
+	}
+	
 
 	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
 	public String home() {
@@ -54,7 +67,7 @@ public class BaseController {
 	@RequestMapping(value = "/uploadServlet", method = RequestMethod.POST)
 	public String uploadServlet(@ModelAttribute("fileBucket") FileBucket fileBucket) throws InputFileUnmarshalException, JSONReportsGenerationException {
 		logger.debug("Upload XML data request received.");
-		inputHandlerServiceFacade.handleInputFromUI(fileBucket);
+		getUploadHandlerServiceFacade().handleUploadService(fileBucket);
 		logger.debug("Upload XML data request completed.");
 		return "success";
 	}
@@ -69,7 +82,7 @@ public class BaseController {
 	public String searchStudentReport(@RequestParam("studentName") String studentName, HttpServletResponse response)
 			throws Exception {
 		logger.debug("Search student report request for "+ studentName +" received.");
-		File f = inputHandlerServiceFacade.handleOutput(studentName);
+		File f = getOutputReportHandlerServiceFacade().handleOutputReportService(studentName);
 		
 		response.setContentType("application/pdf");
 		response.addHeader("Content-Disposition", "attachment; filename=" + f.getName());
@@ -80,6 +93,6 @@ public class BaseController {
 		logger.debug("Search student report request for "+ studentName +" completed.");
 		return "home";
 	}
-	
+
 
 }
