@@ -1,20 +1,42 @@
 package com.university.rm.model;
 
 import java.util.List;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+@Entity
+@Table(name="Student")
 public class Student {
 
+	@Id
 	private Integer id;
 	private String name;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "STUDENT_SUBJECT", 
+             joinColumns = { @JoinColumn(name = "id") }, 
+             inverseJoinColumns = { @JoinColumn(name = "SUBJECT_ID")})
 	private List<Subject> subjects;
+	
+	@Transient
 	private Status status;
+	
+	@Transient
 	private Integer totalMarks;
+	
+	@Transient
 	private Integer rank = 1;
 	
 	public List<Subject> getSubjects() {

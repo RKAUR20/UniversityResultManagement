@@ -31,7 +31,7 @@ public class MainClass {
 	
 	public static void main(String [] args) throws JAXBException, JSONReportsGenerationException, ReportNotFoundException, JsonParseException, JsonMappingException, IOException {
 		
-		System.out.println(Instant.now());
+		/*System.out.println(Instant.now());
 		
 		File fileUpload = new File("C:\\Users\\rkau23\\Students.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);  
@@ -39,14 +39,14 @@ public class MainClass {
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
         Students students= (Students) jaxbUnmarshaller.unmarshal(fileUpload);
         
-        /*ResultCalculatorServiceImpl resultCalculatorService= new ResultCalculatorServiceImpl();
+        ResultCalculatorServiceImpl resultCalculatorService= new ResultCalculatorServiceImpl();
         resultCalculatorService.calculateStudentsResult(students.getStudents());
-        resultCalculatorService.rankStudents(students.getStudents());*/
+        resultCalculatorService.rankStudents(students.getStudents());
         
-        /*FileHandlerServiceImpl impl = new FileHandlerServiceImpl();
-        impl.createJSONReports(students.getStudents());*/
+        FileHandlerServiceImpl impl = new FileHandlerServiceImpl();
+        impl.createJSONReports(students.getStudents());
         
-        System.out.println(Instant.now());
+        System.out.println(Instant.now());*/
         
         /*File file = impl.getStudentReport("Ram");
         

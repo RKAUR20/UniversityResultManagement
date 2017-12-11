@@ -5,7 +5,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.university.rm.dao.StudentDAO;
 import com.university.rm.model.Status;
 import com.university.rm.model.Student;
 import com.university.rm.service.ResultCalculatorService;
@@ -15,6 +18,9 @@ import com.university.rm.service.ResultCalculatorService;
 public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 
 	final Logger logger = Logger.getLogger(ResultCalculatorServiceImpl.class);
+	
+	@Autowired
+	private StudentDAO studentDAO;
 	
 	public void calculateStudentsResult(List<Student> students) {
 		// TODO Auto-generated method stub
@@ -40,7 +46,9 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 
 		logger.debug("Result and total marks of student set.");
 		logger.debug("Calculating Rank for pass students.");
-		rankStudents(students);
+		//rankStudents(students);
+		
+		getStudentDAO().addStudents(students.get(0));
 
 	}
 	
@@ -67,6 +75,14 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 		}
 		
 		logger.debug("Ranking students completed.");
+	}
+
+	public StudentDAO getStudentDAO() {
+		return studentDAO;
+	}
+
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
 	}
 
 }

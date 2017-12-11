@@ -21,7 +21,7 @@ public class XMLMarshaller {
 		Students students = new Students();
 		Random rand = new Random();
 		students.setStudents(new ArrayList<>());
-		for(int i=0 ; i < 500000; i++) {
+		for(int i=0 ; i < 5; i++) {
 			Student s = new Student();
 			s.setId(i+100);
 			s.setName("Student "+i);
@@ -30,7 +30,8 @@ public class XMLMarshaller {
 			
 			for(int j=0; j<5; j++) {
 				Subject sub = new Subject();
-				sub.setSubjectName("Subject " + j);
+				sub.setSubjectId(j);
+				//sub.setSubjectName("Subject " + j);
 				sub.setMarks(rand.nextInt(100) + 30);
 				subjects.add(sub);
 			}
