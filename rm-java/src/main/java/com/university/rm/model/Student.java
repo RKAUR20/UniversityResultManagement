@@ -1,6 +1,8 @@
 package com.university.rm.model;
 
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,11 +26,9 @@ public class Student {
 	private Integer id;
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "STUDENT_SUBJECT", 
-             joinColumns = { @JoinColumn(name = "id") }, 
-             inverseJoinColumns = { @JoinColumn(name = "SUBJECT_ID")})
-	private List<Subject> subjects;
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+	private Set<Subject> subjects;
 	
 	@Transient
 	private Status status;
@@ -39,13 +39,13 @@ public class Student {
 	@Transient
 	private Integer rank = 1;
 	
-	public List<Subject> getSubjects() {
+	public Set<Subject> getSubjects() {
 		return subjects;
 	}
 
 	@XmlElementWrapper(name = "subjects")
     @XmlElement(name = "subject")
-	public void setSubjects(List<Subject> subjects) {
+	public void setSubjects(Set<Subject> subjects) {
 		this.subjects = subjects;
 	}
 

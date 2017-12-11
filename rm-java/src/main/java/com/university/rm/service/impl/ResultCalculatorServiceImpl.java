@@ -48,7 +48,7 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 		logger.debug("Calculating Rank for pass students.");
 		//rankStudents(students);
 		
-		getStudentDAO().addStudents(students.get(0));
+		getStudentDAO().addStudents(students);
 
 	}
 	

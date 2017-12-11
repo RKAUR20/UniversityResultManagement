@@ -3,8 +3,10 @@ package com.university.rm.test;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -26,12 +28,12 @@ public class XMLMarshaller {
 			s.setId(i+100);
 			s.setName("Student "+i);
 			
-			List<Subject> subjects = new ArrayList<>();
+			Set<Subject> subjects = new HashSet<>();
 			
 			for(int j=0; j<5; j++) {
 				Subject sub = new Subject();
-				sub.setSubjectId(j);
-				//sub.setSubjectName("Subject " + j);
+				//sub.setSubjectId(j);
+				sub.setSubjectName("Subject " + j);
 				sub.setMarks(rand.nextInt(100) + 30);
 				subjects.add(sub);
 			}
@@ -43,7 +45,7 @@ public class XMLMarshaller {
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		jaxbMarshaller.marshal(students, new FileOutputStream("C:\\Users\\rkau23\\Students.xml"));  
+		jaxbMarshaller.marshal(students, new FileOutputStream("D:\\Students.xml"));  
 		
 	}
 

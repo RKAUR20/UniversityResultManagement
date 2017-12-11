@@ -8,13 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SUBJECT_MAPPING")
+@Table(name = "STUDENT_SUBJECT")
 public class Subject {
 	
-	@Id
+	/*@Id
 	@Column(name="SUBJECT_ID")
-	private Integer subjectId;
+	private Integer subjectId;*/
 	
+	@Id
 	@Column(name = "SUBJECT_NAME")
 	private String subjectName;
 	private Integer marks;
@@ -37,13 +38,13 @@ public class Subject {
 		this.subjectName = subjectName;
 	}
 
-	public Integer getSubjectId() {
+	/*public Integer getSubjectId() {
 		return subjectId;
 	}
 
 	public void setSubjectId(Integer subjectId) {
 		this.subjectId = subjectId;
-	}
+	}*/
 	
 
 }
