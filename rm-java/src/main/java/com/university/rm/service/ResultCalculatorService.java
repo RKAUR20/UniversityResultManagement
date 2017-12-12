@@ -6,7 +6,7 @@ import com.university.rm.model.Student;
 
 public interface ResultCalculatorService {
 	
-	public void calculateStudentsResult(List<Student> students);
+	public void calculateAndSaveStudentsResult(List<Student> students);
 
 	public void truncateTables();
 

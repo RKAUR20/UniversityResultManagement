@@ -1,18 +1,16 @@
 package com.university.rm.model;
 
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.JoinColumn;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 @Entity
@@ -23,6 +21,7 @@ public class Student {
 	@Column(name ="student_id")
 	private Integer id;
 	private String name;
+	private String course;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id")
@@ -72,6 +71,7 @@ public class Student {
 		for(Subject subject : subjects) {
 			if(subject.getMarks() < 35) {
 				this.status = Status.FAIL;
+				this.rank = null;
 				return;
 			}
 		}
@@ -97,5 +97,17 @@ public class Student {
 	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "id : " + id + " name : " + name + " course : " + course + " status : " + status + " totalMarks : " + totalMarks + " rank : " + rank;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
 }

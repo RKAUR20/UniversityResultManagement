@@ -1,20 +1,24 @@
 <html>
 
 <script type="text/javascript">
+
     function fileValidation() {
         var fileUpload = document.getElementById("fileUpload");
         var file_name = fileUpload.value;
         if (file_name.substr(file_name.lastIndexOf('.') + 1).toLowerCase() != "xml") {
         	alert('Please upload file having extensions .xml only.');
-        	return;
+        	return false;
         }
+        var con=confirm("Uploading data will delete all the previous data." + '\n' +"Do you want to continue for sure?");
+        return con;
     }
+    
 </script>
 
 <body>
 
 <center>
-        <h1>File Upload to Database Demo</h1>
+        <h1>File Upload for Result Calculation</h1>
         <form method="post" modelAttribute="fileBucket" action="uploadServlet" enctype="multipart/form-data" onsubmit="return fileValidation()">
             <table border="0">
                 <tr>

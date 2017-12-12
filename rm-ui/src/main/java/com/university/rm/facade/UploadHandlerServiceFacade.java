@@ -47,7 +47,7 @@ public class UploadHandlerServiceFacade {
 			logger.debug("Clear history :: Report and tables");
 			clearHistoryData();
 			logger.debug("Passing control to service for calculateStudentsResult.");
-			getResultCalculatorService().calculateStudentsResult(students);
+			getResultCalculatorService().calculateAndSaveStudentsResult(students);
 			logger.debug("Passing control to service for createJSONReports.");
 			getFileHandlerService().createJSONReports(students);
 		}
