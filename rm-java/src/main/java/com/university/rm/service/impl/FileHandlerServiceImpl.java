@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -44,30 +45,40 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 		return students.getStudents();  
 	}
 	
-	public void createJSONReports(List<Student> students){
-		
+	@Override
+	public void createJSONReports(List<Student> students) {
+
 		logger.debug("Going to delete existing JSON reports.");
-		
+
 		clearPreviousJSONReports();
-		
+
 		ExecutorService executor = Executors.newFixedThreadPool(5);
-		
+
 		logger.debug("Going to generate JSON reports for uploaded XML student data");
-		for(Student student : students) {
-			executor.submit(() -> {
-				ObjectMapper ow1 = new ObjectMapper();
-				try {
-					ow1.writeValue(new File(student.getName()+".json"), student);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					//throw new JSONReportsGenerationException(e);
-				}
-			});
+
+		students.stream().forEach(student -> executor.submit(() -> {
+			ObjectMapper ow1 = new ObjectMapper();
+			try {
+				ow1.writeValue(new File(student.getName() + ".json"), student);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// throw new JSONReportsGenerationException(e);
+			}
+		}));
+		
+		executor.shutdown();
+
+		try {
+			executor.awaitTermination(10, TimeUnit.MINUTES);
+		} catch (InterruptedException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		logger.debug("Generation of JSON reports for uploaded XML data completed");
 	}
 	
-	private void clearPreviousJSONReports() {
+	@Override
+	public void clearPreviousJSONReports() {
 		
 		File serverDirectory = new File(System.getProperty("user.dir"));
 
@@ -88,11 +99,13 @@ public class FileHandlerServiceImpl implements FileHandlerService{
         else return "";
     }
 	
+	@Override
 	public File getStudentReport(String studentName) throws ReportNotFoundException {
 		
 		File serverDirectory = new File(System.getProperty("user.dir"));
 
 		File[] fList = serverDirectory.listFiles();
+		
 		for (File file : fList) {
 			if ("json".equals(getFileExtension(file))) {
 				if(file.getName().contains(studentName)) {

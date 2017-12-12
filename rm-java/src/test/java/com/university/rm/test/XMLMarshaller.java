@@ -23,7 +23,7 @@ public class XMLMarshaller {
 		Students students = new Students();
 		Random rand = new Random();
 		students.setStudents(new ArrayList<>());
-		for(int i=0 ; i < 5; i++) {
+		for(int i=0 ; i < 100; i++) {
 			Student s = new Student();
 			s.setId(i+100);
 			s.setName("Student "+i);
@@ -45,7 +45,7 @@ public class XMLMarshaller {
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		jaxbMarshaller.marshal(students, new FileOutputStream("D:\\Students.xml"));  
+		jaxbMarshaller.marshal(students, new FileOutputStream("C:\\\\Users\\\\rkau23\\Students.xml"));  
 		
 	}
 

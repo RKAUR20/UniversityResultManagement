@@ -1,10 +1,13 @@
 package com.university.rm.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,6 @@ import com.university.rm.dao.StudentDAO;
 import com.university.rm.model.Status;
 import com.university.rm.model.Student;
 import com.university.rm.service.ResultCalculatorService;
-
 
 @Service
 public class ResultCalculatorServiceImpl implements ResultCalculatorService {
@@ -25,16 +27,16 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 	public void calculateStudentsResult(List<Student> students) {
 		// TODO Auto-generated method stub
 		
+		//getStudentDAO().addStudents(students);
+		
 		logger.debug("Going to set result and total marks of students.");
 		
 		ExecutorService executor = Executors.newFixedThreadPool(5);
 
-		for (Student student : students) {
-			executor.submit(() -> {
-				student.setStatus();
-				student.setTotalMarks();
-			});
-		}
+		students.stream().forEach(student -> executor.submit(() -> {
+			student.setStatus();
+			student.setTotalMarks();
+		}));
 
 		executor.shutdown();
 
@@ -46,9 +48,10 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 
 		logger.debug("Result and total marks of student set.");
 		logger.debug("Calculating Rank for pass students.");
-		//rankStudents(students);
 		
-		getStudentDAO().addStudents(students);
+		
+		rankStudents(students);
+		
 
 	}
 	
@@ -83,6 +86,12 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 
 	public void setStudentDAO(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
+	}
+
+	@Override
+	public void truncateTables() {
+		// TODO Auto-generated method stub
+		getStudentDAO().deleteAllData();
 	}
 
 }

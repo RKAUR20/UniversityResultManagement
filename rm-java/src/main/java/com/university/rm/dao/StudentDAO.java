@@ -8,4 +8,6 @@ public interface StudentDAO {
 	
 	public void addStudents(List<Student> students);
 
+	public void deleteAllData();
+
 }

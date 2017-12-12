@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,11 +12,10 @@ import javax.persistence.Table;
 @Table(name = "STUDENT_SUBJECT")
 public class Subject {
 	
-	/*@Id
-	@Column(name="SUBJECT_ID")
-	private Integer subjectId;*/
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
 	@Column(name = "SUBJECT_NAME")
 	private String subjectName;
 	private Integer marks;
@@ -37,14 +37,13 @@ public class Subject {
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-
-	/*public Integer getSubjectId() {
-		return subjectId;
+	
+	public Integer getId() {
+		return id;
 	}
 
-	public void setSubjectId(Integer subjectId) {
-		this.subjectId = subjectId;
-	}*/
-	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 }

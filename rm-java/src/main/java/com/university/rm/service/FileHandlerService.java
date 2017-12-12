@@ -22,4 +22,6 @@ public interface FileHandlerService {
 	public void createJSONReports(List<Student> students) throws JSONReportsGenerationException;
 
 	public File getStudentReport(String studentName) throws ReportNotFoundException;
+
+	void clearPreviousJSONReports();
 }

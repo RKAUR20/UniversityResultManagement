@@ -2,6 +2,7 @@ package com.university.rm.dao.impl;
 
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,16 +28,32 @@ public class StudentDAOImpl implements StudentDAO {
 
 	@Override
 	public void addStudents(List<Student> students) {
-		Session session = this.sessionFactory.getCurrentSession();
-		//Transaction tx = session.beginTransaction();
-		logger.info("Transaction for saing student details started");
-		/*for (Student student : students) {
-			session.persist(student);
-		}*/
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		logger.info("Transaction for saving student details started");
+		students.forEach(student -> session.persist(student));
+		tx.commit();
+		logger.info("Transaction for saving student details ended :: commit completed");
+		session.close();
+	}
+	
+	@Override
+	public void deleteAllData() {
 		
-		//tx.commit();
-		//session.close();
+		String SUBJECT_QUERY = "delete Subject";
+		String STUDENT_QUERY = "delete Student";
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		logger.info("Transaction for deleting student details started.");
+		Query subjectQuery = session.createQuery(SUBJECT_QUERY);
+		Query studentQuery = session.createQuery(STUDENT_QUERY);
+		subjectQuery.executeUpdate();
+		studentQuery.executeUpdate();
+		tx.commit();
+		logger.info("Transaction for deleting student details completed.");
+		session.close();
 		
 	}
+	
 	
 }

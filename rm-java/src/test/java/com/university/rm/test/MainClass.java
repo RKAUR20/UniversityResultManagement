@@ -23,6 +23,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.university.rm.customexceptions.JSONReportsGenerationException;
 import com.university.rm.customexceptions.ReportNotFoundException;
+import com.university.rm.dao.impl.StudentDAOImpl;
 import com.university.rm.model.Student;
 import com.university.rm.model.Students;
 import com.university.rm.model.Subject;
@@ -34,29 +35,32 @@ public class MainClass {
 	public static void main(String [] args) throws JAXBException, JSONReportsGenerationException, ReportNotFoundException, JsonParseException, JsonMappingException, IOException {
 		
 		System.out.println(Instant.now());
-		ApplicationContext context = new ClassPathXmlApplicationContext("hibernate-config.xml");
-		File fileUpload = new File("D:\\Students.xml");
+		//ApplicationContext context = new ClassPathXmlApplicationContext("hibernate-config.xml");
+		File fileUpload = new File("C:\\Users\\rkau23\\Students.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);  
 		   
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
         Students students= (Students) jaxbUnmarshaller.unmarshal(fileUpload);
         
-        ResultCalculatorServiceImpl resultCalculatorService= (ResultCalculatorServiceImpl) context.getBean(ResultCalculatorServiceImpl.class);
+        
+        //ResultCalculatorServiceImpl resultCalculatorService= (ResultCalculatorServiceImpl) context.getBean(ResultCalculatorServiceImpl.class);
+        ResultCalculatorServiceImpl resultCalculatorService = new ResultCalculatorServiceImpl();
+        
         resultCalculatorService.calculateStudentsResult(students.getStudents());
         //resultCalculatorService.rankStudents(students.getStudents());
         
-       /* FileHandlerServiceImpl impl = new FileHandlerServiceImpl();
-        impl.createJSONReports(students.getStudents());
+        /*FileHandlerServiceImpl impl = new FileHandlerServiceImpl();
+        impl.createJSONReports(students.getStudents());*/
         
         System.out.println(Instant.now());
         
-        File file = impl.getStudentReport("Ram");
+        /*File file = impl.getStudentReport("Ram");
         
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Student student = objectMapper.readValue(file, Student.class);*/
+        Student student = objectMapper.readValue(file, Student.class);
         
-        System.out.println(students.getStudents().size());
+        System.out.println(students.getStudents().size());*/
         
 	}
 	
