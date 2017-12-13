@@ -104,7 +104,7 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 		
 		for (File file : fList) {
 			if ("json".equals(getFileExtension(file))) {
-				if(file.getName().contains(studentName)) {
+				if(file.getName().toLowerCase().contains(studentName.toLowerCase())) {
 					return file;
 				}
 			}

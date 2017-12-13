@@ -79,7 +79,7 @@ public class ApplicationController {
 	}
 
 	@RequestMapping(value = "/searchStudentReport", method = RequestMethod.POST)
-	public String searchStudentReport(@RequestParam("studentName") String studentName, HttpServletResponse response)
+	public void searchStudentReport(@RequestParam("studentName") String studentName, HttpServletResponse response)
 			throws Exception {
 		logger.debug("Search student report request for "+ studentName +" received.");
 		File f = getOutputReportHandlerServiceFacade().handleOutputReportService(studentName);
@@ -91,7 +91,7 @@ public class ApplicationController {
 		FileCopyUtils.copy(inputStream, response.getOutputStream());
 		response.getOutputStream().flush();
 		logger.debug("Search student report request for "+ studentName +" completed.");
-		return "home";
+		//return "home";
 	}
 
 

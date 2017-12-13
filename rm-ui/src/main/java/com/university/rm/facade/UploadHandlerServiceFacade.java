@@ -42,8 +42,8 @@ public class UploadHandlerServiceFacade {
 	public void handleUploadService(FileBucket fileBucket) throws InputFileUnmarshalException, JSONReportsGenerationException {
 		logger.debug("Passing control to service for convertXMLFileToStudents.");
 		List<Student> students = getFileHandlerService().convertXMLFileToStudents(fileBucket);
-		logger.debug("Students received after marshalling XML :: " + students.size());
 		if (null != students && !students.isEmpty()) {
+			logger.debug("Students received after marshalling XML :: " + students.size());
 			logger.debug("Clear history :: Report and tables");
 			clearHistoryData();
 			logger.debug("Passing control to service for calculateStudentsResult.");

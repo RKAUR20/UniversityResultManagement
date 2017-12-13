@@ -36,7 +36,7 @@ public class MainClass {
 	
 	public static void main(String [] args) throws JAXBException, JSONReportsGenerationException, ReportNotFoundException, JsonParseException, JsonMappingException, IOException {
 		
-		System.out.println(Instant.now());
+		System.out.println(Runtime.getRuntime().availableProcessors());
 		//ApplicationContext context = new ClassPathXmlApplicationContext("hibernate-config.xml");
 		File fileUpload = new File("C:\\Users\\rkau23\\Students.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(Students.class);  

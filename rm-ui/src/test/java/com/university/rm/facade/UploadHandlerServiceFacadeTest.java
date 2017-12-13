@@ -113,4 +113,19 @@ public class UploadHandlerServiceFacadeTest {
 		uploadHandlerServiceFacade.handleUploadService(Mockito.anyObject());
 	}
 	
+	@Test
+	public void testHandleUploadServiceNullList() throws InputFileUnmarshalException, JSONReportsGenerationException {
+
+		//Mock
+		Mockito.when(fileHandlerService.convertXMLFileToStudents(Mockito.anyObject())).thenReturn(null);
+		
+		//Call
+		uploadHandlerServiceFacade.handleUploadService(Mockito.anyObject());
+
+		//Verify
+		Mockito.verify(fileHandlerService, Mockito.never()).createJSONReports(Mockito.anyList());
+		Mockito.verify(resultCalculatorService, Mockito.never()).calculateAndSaveStudentsResult(Mockito.anyList());
+		Mockito.verify(resultCalculatorService, Mockito.never()).truncateTables();
+
+	}
 }

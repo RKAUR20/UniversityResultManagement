@@ -91,8 +91,6 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 			if (current.getStatus() == Status.PASS) {
 
 				for (Student jStudent : calculatedRankList) {
-					System.out.println(current.getName() + current.getRank() + " Ranking " + jStudent.getName()
-							+ jStudent.getRank());
 					if (current.getTotalMarks() < jStudent.getTotalMarks()) {
 						current.setRank(current.getRank() + 1);
 					} else {
