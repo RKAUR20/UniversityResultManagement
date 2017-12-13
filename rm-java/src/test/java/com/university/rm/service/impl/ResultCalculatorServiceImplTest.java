@@ -42,7 +42,7 @@ public class ResultCalculatorServiceImplTest {
 		Mockito.verify(studentDAO).deleteAllData();
 	}
 	
-	/*@Test
+	@Test
 	public void testCalculateAndSaveStudentsResult() {
 		
 		//Mock
@@ -67,7 +67,7 @@ public class ResultCalculatorServiceImplTest {
 		});
 		passStudents.forEach(System.out::println);
 		assertEquals(firstStudent, passStudents.get(0));
-	}*/
+	}
 	
 	/*@Test(timeout=10000)
 	public void testPerformance() {
