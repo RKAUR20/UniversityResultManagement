@@ -3,7 +3,9 @@ package com.university.rm.model;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +13,8 @@ import org.junit.Test;
 public class StudentTest {
 
 	private Student student;
-	private List<Subject> passSubjectList;
-	private List<Subject> failSubjectList;
+	private Set<Subject> passSubjectList;
+	private Set<Subject> failSubjectList;
 	
 	@Before
 	public void setUp() {
@@ -20,7 +22,7 @@ public class StudentTest {
 		student.setName("Ram");
 		student.setId(1101);
 		
-		passSubjectList = new ArrayList<>();
+		passSubjectList = new HashSet<>();
 		Subject sub1 = new Subject();
 		sub1.setSubjectName("Maths");
 		sub1.setMarks(55);
@@ -42,7 +44,7 @@ public class StudentTest {
 		passSubjectList.add(sub4);
 		passSubjectList.add(sub5);
 		
-		failSubjectList = new ArrayList<>();
+		failSubjectList = new HashSet<>();
 		Subject sub6 = new Subject();
 		sub6.setSubjectName("Maths");
 		sub6.setMarks(35);
@@ -53,7 +55,7 @@ public class StudentTest {
 		failSubjectList.add(sub7);
 	}
 	
-	/*@Test
+	@Test
 	public void testSetTotalMarks() {
 		student.setSubjects(passSubjectList);
 		student.setTotalMarks();
@@ -72,6 +74,6 @@ public class StudentTest {
 		student.setSubjects(failSubjectList);
 		student.setStatus();
 		assertEquals(Status.FAIL, student.getStatus());
-	}*/
+	}
 	
 }

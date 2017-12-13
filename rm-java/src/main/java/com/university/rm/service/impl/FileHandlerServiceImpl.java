@@ -14,8 +14,8 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Service;
+
 import com.university.rm.customexceptions.InputFileUnmarshalException;
-import com.university.rm.customexceptions.JSONReportsGenerationException;
 import com.university.rm.customexceptions.ReportNotFoundException;
 import com.university.rm.model.FileBucket;
 import com.university.rm.model.Student;
@@ -48,10 +48,6 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 	@Override
 	public void createJSONReports(List<Student> students) {
 
-		logger.debug("Going to delete existing JSON reports.");
-
-		clearPreviousJSONReports();
-
 		ExecutorService executor = Executors.newFixedThreadPool(5);
 
 		logger.debug("Going to generate JSON reports for uploaded XML student data");
@@ -59,7 +55,7 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 		students.stream().forEach(student -> executor.submit(() -> {
 			ObjectMapper ow1 = new ObjectMapper();
 			try {
-				ow1.writeValue(new File(student.getName() + ".json"), student);
+				ow1.writeValue(new File(student.getName() + "_" + student.getId() + ".json"), student);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				// throw new JSONReportsGenerationException(e);

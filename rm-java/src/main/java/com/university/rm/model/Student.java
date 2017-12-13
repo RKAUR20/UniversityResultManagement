@@ -68,14 +68,14 @@ public class Student {
 	}
 
 	public void setStatus() {
-		for(Subject subject : subjects) {
+		this.status = Status.PASS;
+		this.getSubjects().stream().forEach(subject -> {
 			if(subject.getMarks() < 35) {
 				this.status = Status.FAIL;
 				this.rank = null;
 				return;
 			}
-		}
-		this.status = Status.PASS;
+		});
 	}
 
 	public Integer getTotalMarks() {
@@ -83,11 +83,7 @@ public class Student {
 	}
 
 	public void setTotalMarks() {
-		Integer totalMarks = 0;
-		for(Subject subject : this.subjects) {
-			totalMarks = totalMarks + subject.getMarks();
-		}
-		this.totalMarks = totalMarks;
+		this.totalMarks = this.getSubjects().stream().mapToInt(sub -> sub.getMarks()).sum();
 	}
 
 	public Integer getRank() {

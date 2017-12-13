@@ -3,6 +3,8 @@ package com.university.rm.test;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -44,10 +46,19 @@ public class MainClass {
         
         
         //ResultCalculatorServiceImpl resultCalculatorService= (ResultCalculatorServiceImpl) context.getBean(ResultCalculatorServiceImpl.class);
-        ResultCalculatorServiceImpl resultCalculatorService = new ResultCalculatorServiceImpl();
+        /*ResultCalculatorServiceImpl resultCalculatorService = new ResultCalculatorServiceImpl();
+        resultCalculatorService.calculateAndSaveStudentsResult(students.getStudents());*/
         
-        resultCalculatorService.calculateStudentsResult(students.getStudents());
-        //resultCalculatorService.rankStudents(students.getStudents());
+        /*Collections.sort(students.getStudents(), new Comparator<Student>() {
+
+			@Override
+			public int compare(Student o1, Student o2) {
+				// TODO Auto-generated method stub
+				return o2.getTotalMarks().compareTo(o1.getTotalMarks());
+			}
+		});*/
+        
+        students.getStudents().stream().forEach(student -> System.out.println(student.toString()));
         
         /*FileHandlerServiceImpl impl = new FileHandlerServiceImpl();
         impl.createJSONReports(students.getStudents());*/

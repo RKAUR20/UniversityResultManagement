@@ -14,11 +14,19 @@ public class OutputReportHandlerServiceFacade {
 final Logger logger = Logger.getLogger(OutputReportHandlerServiceFacade.class); 
 	
 	@Autowired
-	FileHandlerService fileHandlerService;
+	private FileHandlerService fileHandlerService;
 	
+	public FileHandlerService getFileHandlerService() {
+		return fileHandlerService;
+	}
+
+	public void setFileHandlerService(FileHandlerService fileHandlerService) {
+		this.fileHandlerService = fileHandlerService;
+	}
+
 	public File handleOutputReportService(String studentName) throws ReportNotFoundException {
 		logger.debug("Passing control to service for getting student report.");
-		return fileHandlerService.getStudentReport(studentName);
+		return getFileHandlerService().getStudentReport(studentName);
 	}
 
 }
