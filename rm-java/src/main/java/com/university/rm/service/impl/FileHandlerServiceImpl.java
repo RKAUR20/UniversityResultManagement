@@ -16,6 +16,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import com.university.rm.customexceptions.InputFileUnmarshalException;
+import com.university.rm.customexceptions.JSONReportsGenerationException;
 import com.university.rm.customexceptions.ReportNotFoundException;
 import com.university.rm.model.FileBucket;
 import com.university.rm.model.Student;
@@ -28,7 +29,8 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 
 	final Logger logger = Logger.getLogger(FileHandlerServiceImpl.class);
 	
-	public List<Student> convertXMLFileToStudents(FileBucket fileBucket) throws InputFileUnmarshalException{
+	@Override
+	public List<Student> convertXMLFileToStudents(FileBucket fileBucket) {
 		logger.debug("UnMarshalling uploaded XML file to Students Object started.");
 		File fileUpload = new File(fileBucket.getFile().getOriginalFilename());
 		Students students = null;
@@ -58,7 +60,7 @@ public class FileHandlerServiceImpl implements FileHandlerService{
 				ow1.writeValue(new File(student.getName() + "_" + student.getId() + ".json"), student);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				// throw new JSONReportsGenerationException(e);
+				throw new JSONReportsGenerationException(e);
 			}
 		}));
 		
@@ -96,7 +98,7 @@ public class FileHandlerServiceImpl implements FileHandlerService{
     }
 	
 	@Override
-	public File getStudentReport(String studentName) throws ReportNotFoundException {
+	public File getStudentReport(String studentName) {
 		
 		File serverDirectory = new File(System.getProperty("user.dir"));
 

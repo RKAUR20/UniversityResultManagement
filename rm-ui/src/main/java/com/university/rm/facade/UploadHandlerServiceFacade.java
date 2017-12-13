@@ -1,17 +1,17 @@
 package com.university.rm.facade;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.university.rm.customexceptions.InputFileUnmarshalException;
-import com.university.rm.customexceptions.JSONReportsGenerationException;
+import org.springframework.stereotype.Component;
+
 import com.university.rm.model.FileBucket;
 import com.university.rm.model.Student;
 import com.university.rm.service.FileHandlerService;
 import com.university.rm.service.ResultCalculatorService;
 
-@Service
+@Component
 public class UploadHandlerServiceFacade {
 	
 	final Logger logger = Logger.getLogger(UploadHandlerServiceFacade.class); 
@@ -39,7 +39,7 @@ public class UploadHandlerServiceFacade {
 	}
 
 	
-	public void handleUploadService(FileBucket fileBucket) throws InputFileUnmarshalException, JSONReportsGenerationException {
+	public void handleUploadService(FileBucket fileBucket) {
 		logger.debug("Passing control to service for convertXMLFileToStudents.");
 		List<Student> students = getFileHandlerService().convertXMLFileToStudents(fileBucket);
 		if (null != students && !students.isEmpty()) {

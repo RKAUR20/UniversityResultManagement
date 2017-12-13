@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.university.rm.dao.StudentDAO;
 import com.university.rm.model.Status;
@@ -19,6 +20,7 @@ import com.university.rm.model.Student;
 import com.university.rm.service.ResultCalculatorService;
 
 @Service
+@Transactional
 public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 
 	final Logger logger = Logger.getLogger(ResultCalculatorServiceImpl.class);

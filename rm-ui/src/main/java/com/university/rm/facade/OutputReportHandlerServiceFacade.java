@@ -1,14 +1,14 @@
 package com.university.rm.facade;
 
 import java.io.File;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import com.university.rm.customexceptions.ReportNotFoundException;
 import com.university.rm.service.FileHandlerService;
 
-@Service
+@Component
 public class OutputReportHandlerServiceFacade {
 	
 final Logger logger = Logger.getLogger(OutputReportHandlerServiceFacade.class); 
@@ -24,7 +24,7 @@ final Logger logger = Logger.getLogger(OutputReportHandlerServiceFacade.class);
 		this.fileHandlerService = fileHandlerService;
 	}
 
-	public File handleOutputReportService(String studentName) throws ReportNotFoundException {
+	public File handleOutputReportService(String studentName){
 		logger.debug("Passing control to service for getting student report.");
 		return getFileHandlerService().getStudentReport(studentName);
 	}

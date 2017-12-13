@@ -1,11 +1,11 @@
 package com.university.rm.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.university.rm.customexceptions.InputFileUnmarshalException;
-import com.university.rm.customexceptions.JSONReportsGenerationException;
 import com.university.rm.facade.OutputReportHandlerServiceFacade;
 import com.university.rm.facade.UploadHandlerServiceFacade;
 import com.university.rm.model.FileBucket;
@@ -65,7 +63,7 @@ public class ApplicationController {
 	}
 
 	@RequestMapping(value = "/uploadServlet", method = RequestMethod.POST)
-	public String uploadServlet(@ModelAttribute("fileBucket") FileBucket fileBucket) throws InputFileUnmarshalException, JSONReportsGenerationException {
+	public String uploadServlet(@ModelAttribute("fileBucket") FileBucket fileBucket){
 		logger.debug("Upload XML data request received.");
 		getUploadHandlerServiceFacade().handleUploadService(fileBucket);
 		logger.debug("Upload XML data request completed.");

@@ -1,7 +1,8 @@
 package com.university.rm.customexceptions;
 
-public class ReportNotFoundException extends ApplicationExceptionFactory {
+public class ReportNotFoundException extends RuntimeException {
 
+	private static final long serialVersionUID = -8709972876090330158L;
 	private String studentName;
 
 	public ReportNotFoundException(String studentName) {
@@ -10,7 +11,6 @@ public class ReportNotFoundException extends ApplicationExceptionFactory {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public String getExceptionMessage() {
 		// TODO Auto-generated method stub
 		return "Report of Student "+ studentName +" not found. Please enter valid student name or upload the new data!!";
