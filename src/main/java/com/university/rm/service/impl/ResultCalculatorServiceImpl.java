@@ -50,7 +50,9 @@ public class ResultCalculatorServiceImpl implements ResultCalculatorService {
 		students.stream().forEach(student -> futureStudentList.add(executor.submit(() -> {
 			logger.debug(
 					Thread.currentThread().getName() + " executing status and total marks of " + student.getName());
+			//Sets status of student either PASS or FAIL depending on the marks obtained in all subjects
 			student.setStatus();
+			//Calculate total marks obtained in all subjects using JAVA 8 stream api
 			student.setTotalMarks();
 			return student;
 		})));

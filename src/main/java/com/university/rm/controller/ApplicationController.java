@@ -76,7 +76,7 @@ public class ApplicationController {
 		return model;
 	}
 
-	@RequestMapping(value = "/searchStudentReport", method = RequestMethod.POST)
+	@RequestMapping(value = "/searchStudentReport", method = RequestMethod.GET)
 	public void searchStudentReport(@RequestParam("studentName") String studentName, HttpServletResponse response)
 			throws Exception {
 		logger.debug("Search student report request for "+ studentName +" received.");

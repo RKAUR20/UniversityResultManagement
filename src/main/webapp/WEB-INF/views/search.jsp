@@ -4,7 +4,7 @@
 <center>
         <h1>Search Student Data</h1>
         
-        <form method="post" action="searchStudentReport">
+        <form method="get" action="searchStudentReport">
             <table border="0">
                 <tr>
                     <td>Enter name of Student : </td>
